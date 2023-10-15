@@ -76,11 +76,27 @@ class Birthday(Field):
         return f"{self._value.strftime('%d.%m.%Y')}"
 
 
+class Email(Field):
+    @Field.value.setter
+    def value(self, value):
+        if value is None:
+            self._value = value
+
+
+class Address(Field):
+    @Field.value.setter
+    def value(self, value):
+        if value is None:
+            self._value = value
+
+
 class Record:
-    def __init__(self, name, birthday=None):
+    def __init__(self, name, birthday=None, email=None, address=None):
         self.birthday = Birthday(birthday)
         self.name = Name(name)  # застосування асоціації під назваю композиція. Об'єкт Name існує поки є об'єкт Record
         self.phones = []
+        self.email = Email(email)
+        self.address = Address(address)
 
     def add_phone(self, number):
         if number in map(lambda num: num.value, self.phones):
@@ -115,6 +131,13 @@ class Record:
             return 'додано'
         else:
             return 'вже є'
+    
+    def add_email(self, email):
+        if self.email.value is None:
+            self.email = Email(email)
+            return 'email додано'
+        else:
+            return 'email вже є'
 
     def days_to_birthday(self):
         today = date.today()
