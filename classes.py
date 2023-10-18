@@ -174,7 +174,8 @@ class AddressBook(UserDict):
     def delete(self, name):
         if name not in self.data:
             raise KeyError("Немає контакту з таким ім'ям")    # Викликаємо помилку, якщо контакт з таким ім'ям не існує.
-        self.data.pop(name)
+        result = self.data.pop(name)
+        return result
 
     def iterator(self, page_size):
         print(self.data)
