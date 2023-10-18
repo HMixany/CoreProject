@@ -33,43 +33,22 @@ class Phone(Field):
 
     @Field.value.setter
     def value(self, value):
-        if value is None:
-            self._value = value
-        elif len(value) == 10 and value.isdigit():
-            self._value = value
-        else:
-            raise ValueError('Номер телефону має бути: код_оператора ХХХХХХ\nКод оператора: 067, 050, 068, 096, 097,'
-                             '098, 063, 093, 099, 095')
+        if value is not None:
+            if len(value) == 10 and value.isdigit():
+                self._value = value
+            else:
+                raise ValueError('Номер телефону має бути: код_оператора ХХХХХХ\nКод оператора: 067, 050, 068, 096,'
+                                 '097, 098, 063, 093, 099, 095')
 
 
 class Birthday(Field):
 
     @Field.value.setter
     def value(self, value: str):
-        if value is None:
-            self._value = value
-        else:
-            date_pattern = r'\d{2}\.\d{2}\.\d{4}'  # Регулярка формату дати "dd.mm.yyyy"
-            if re.match(date_pattern, value):
-                day, month, year = map(int, value.split('.'))
-                # Валідація значень дня, місяця та року
-                if month in [1, 3, 5, 7, 8, 10, 12]:
-                    max_day = 31
-                elif month in [4, 6, 9, 11]:
-                    max_day = 30
-                elif month == 2:
-                    if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
-                        max_day = 29  # Високосний рік
-                    else:
-                        max_day = 28
-                else:
-                    raise ValueError('Невірний місяць')
-
-                if 1 <= day <= max_day:
-                    self._value = datetime(year, month, day).date()
-                else:
-                    raise ValueError(f"В {month} місяці від 1 до {max_day} днів")
-            else:
+        if value is not None:
+            try:
+                self._value = datetime.strptime(value, '%d.%m.%Y').date()
+            except ValueError:
                 raise ValueError('Невірний формат дати. Введіть у форматі dd.mm.yyyy')
 
     def __str__(self):
@@ -79,15 +58,16 @@ class Birthday(Field):
 class Email(Field):
     @Field.value.setter
     def value(self, value):
-        if value is None:
+        if value is not None:
             self._value = value
 
 
 class Address(Field):
     @Field.value.setter
     def value(self, value):
-        if value is None:
+        if value is not None:
             self._value = value
+
 
 class Record:
     def __init__(self, name, birthday=None, email=None, address=None):
@@ -101,15 +81,15 @@ class Record:
         if number is None:
             return
         elif number in map(lambda num: num.value, self.phones):
-            return 'вже є у контакта'  # Якщо такий номер вже є у контакта
+            return 'номер вже є'  # Якщо такий номер вже є у контакта
         else:
             self.phones.append(Phone(number))
-            return 'додано до контакту'
+            return 'номер додано'
 
     def remove_phone(self, number):
-        for p in self.phones:
-            if number == p.value:
-                self.phones.remove(p)
+        for phone in self.phones:
+            if number == phone.value:
+                self.phones.remove(phone)
                 return f'Номер {self.name.value} видалено'
         return f'{self.name.value} такого номеру не знайдено'
 
@@ -129,9 +109,23 @@ class Record:
     def add_birthday(self, birthday):
         if self.birthday.value is None:
             self.birthday = Birthday(birthday)
-            return 'додано'
+            return 'дату народження додано'
         else:
-            return 'вже є'
+            return 'дата народження вже є'
+
+    def add_email(self, email):
+        if self.email.value is None:
+            self.birthday = Email(email)
+            return 'email додано'
+        else:
+            return 'email вже є'
+
+    def add_address(self, address):
+        if self.address.value is None:
+            self.birthday = Address(address)
+            return 'адресу додано'
+        else:
+            return 'адреса вже є'
 
     def days_to_birthday(self):
         today = date.today()
@@ -143,42 +137,43 @@ class Record:
 
     def __str__(self):
         result = f'{self.name.value}:\n\tPhone: {"; ".join(p.value for p in self.phones)}'
-        
         if self.birthday.value is not None:
-            result += f'\nbirthday: {self.birthday}, days to birthday: {self.days_to_birthday()}\n'
+            result += f'\n\tbirthday: {self.birthday}, days to birthday: {self.days_to_birthday()}'
         if self.email.value is not None:
-            result += f'email: {self.email}'
+            result += f'\n\temail: {self.email}'
         if self.address.value is not None:
-            result += f'address: {self.address}'
-        
+            result += f'\n\taddress: {self.address}'
         return result
 
 
 class AddressBook(UserDict):
-    def add_record(self, user: Record):  # асоціація під назвою агригація
+    def add_record(self, user: Record):                            # асоціація під назвою агригація
         self.data[user.name.value] = user
 
     def find(self, name):
+        if name not in self.data:
+            raise KeyError("Немає контакту з таким ім'ям")     # Викликаємо помилку, якщо контакт з таким ім'ям не існує.
         return self.data.get(name)
 
-    def find_birthday_boy(self, days):
-        boys = []
+    def find_birthday_users(self, days):
+        users = []
         result = ''
         for record in self.data.values():
             if record.birthday.value is None:
                 continue
             if record.days_to_birthday() <= int(days):
-                boys.append(record)
-                # result += f'{record}\n'
-        if len(boys) == 0:
+                users.append(record)
+        if len(users) == 0:
             result += f"Найближчі {days} днів іменинників немає"
         else:
-            sorted_boys = sorted(boys, key=lambda record: record.days_to_birthday())
-            for record in sorted_boys:
+            sorted_users = sorted(users, key=lambda record: record.days_to_birthday())
+            for record in sorted_users:
                 result += f'{record}'
         return result
 
     def delete(self, name):
+        if name not in self.data:
+            raise KeyError("Немає контакту з таким ім'ям")    # Викликаємо помилку, якщо контакт з таким ім'ям не існує.
         self.data.pop(name)
 
     def iterator(self, page_size):
@@ -195,7 +190,7 @@ class AddressBook(UserDict):
 
     def find_match(self, string):
         if not self.data:
-            return f'Немає жодного контакту'  # Якщо немає контактів
+            return f'Немає жодного контакту'                               # Якщо немає контактів
         result = ''
         for record in self.data.values():
             if string.lower() in record.name.value.lower():
