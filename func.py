@@ -31,28 +31,48 @@ def compiling_page(page_number, contacts, total):
 @input_error
 def add(*args, **kwargs):
     print(kwargs)
-    for key in kwargs:
-        if len(kwargs[key].strip()) == 0:
-            kwargs[key] = None
-    if kwargs['name'] is None:
-        return f"Ви не ввели ім'я"
-    if kwargs['name'] in phonebook.data:                              # Якщо контакт вже є
-        name_record = phonebook.find(kwargs['name'])                  # Знайдемо контакт за ім'ям
-        name_record.add_phone(kwargs['phone'])
-        name_record.add_birthday(kwargs['birthday'])
-        return f'Контакту {kwargs["name"]} дані додані'
-    else:
-        name_record = Record(kwargs['name'], kwargs['birthday'], kwargs['email'], kwargs['address'])
-        name_record.add_phone(kwargs['phone'])
+    if len(args) == 1:                                                  # Якщо додається з gui
+        for key in kwargs:
+            if len(kwargs[key].strip()) == 0:
+                kwargs[key] = None
+        if kwargs['name'] is None:
+            return f"Ви не ввели ім'я"
+        if kwargs['name'] in phonebook.data:                              # Якщо контакт вже є
+            result = f'У котакта {kwargs["name"]} '
+            name_record = phonebook.find(kwargs['name'])                  # Знайдемо контакт за ім'ям
+            result_phone = name_record.add_phone(kwargs['phone'])
+            result_birthday = name_record.add_birthday(kwargs['birthday'])
+            result_email = name_record.add_email(kwargs['email'])
+            result_address = name_record.add_address(kwargs['address'])
+            result = result + result_phone + result_birthday + result_email + result_address
+            return result
+        else:
+            name_record = Record(kwargs['name'], kwargs['birthday'], kwargs['email'], kwargs['address'])
+            name_record.add_phone(kwargs['phone'])
+            phonebook.add_record(name_record)
+            return f'Успішно додано контакт '
+
+    else:                                                                 # Якщо додається з консолі
+        if args[1] in phonebook.data:                                     # Якщо контакт вже є
+            name_record = phonebook.find(args[1])                         # Знайдемо контакт за ім'ям
+            if '.' in args[2]:                                            # Якщо третім аргументом елемент дати
+                text = name_record.add_birthday(args[2])
+                return f'Дата народження {text}'                          # Повідомить про додавання дня народження
+            else:
+                result = name_record.add_phone(args[2])                   # Додаємо новий номер, якщо контакт вже існує.
+                return f'Номер {args[2]} {result} {args[1]}'
+        if len(args) == 4:
+            name_record = Record(args[1], args[3])
+        else:
+            name_record = Record(args[1])
+        name_record.add_phone(args[2])
         phonebook.add_record(name_record)
-        return f'Успішно додано контакт '
+        return f'Контакт {args[1]} з номером {args[2]} успішно додано'  # Повідомляємо користувача про успішне додавання.
 
 
 # Декорована функція для зміни номера телефону контакту.
 @input_error
 def change(*args):
-    if args[1] not in phonebook:
-        raise KeyError("Немає контакту з таким ім'ям")       # Викликаємо помилку, якщо контакт з таким ім'ям не існує.
     name_record = phonebook.find(args[1])                    # Знаходимо об'єкт Record контакту
     name_record.edit_phone(args[2], args[3])                 # Змінюємо старий номер на новий
     return f'Номер {args[2]} для {args[1]} було змінено на {args[3]}'
@@ -61,8 +81,6 @@ def change(*args):
 # Декорована функція для видалення номеру у контакта
 @input_error
 def remove(*args):
-    if args[1] not in phonebook:
-        raise KeyError("Немає контакту з таким ім'ям")
     name_record = phonebook.find(args[1])
     result = name_record.remove_phone(args[2])
     return result
@@ -71,8 +89,6 @@ def remove(*args):
 # Декорована функція для отримання номера телефону контакту.
 @input_error
 def phone(*args):
-    if args[1] not in phonebook:
-        raise KeyError("Немає контакту з таким ім'ям")       # Викликаємо помилку, якщо контакт з таким ім'ям не існує.
     name_record = phonebook.find(args[1])
     result = f"{'; '.join(p.value for p in name_record.phones)}"
     return result                                            # Повертаємо номера телефонів контакту.
@@ -81,8 +97,6 @@ def phone(*args):
 # Декорована функція для отримання всієї інформаціі о контакту, або отримання сторінки контактів
 @input_error
 def show(*args):
-    if args[1] not in phonebook:
-        raise KeyError("Немає контакту з таким ім'ям")        # Викликаємо помилку, якщо контакт з таким ім'ям не існує.
     name_record = phonebook.find(args[1])
     return name_record
 
@@ -120,14 +134,11 @@ def birthday(*args):
         days = args[1]
     else:
         raise ValueError('Ви ввели не число')
-    return phonebook.find_birthday_boy(days)
+    return phonebook.find_birthday_users(days)
 
 # Декорована функція для видалення контакту
 @input_error
 def delete(*args):
-    result = ''
-    if args[1] not in phonebook:
-        raise KeyError("Немає контакту з таким ім'ям")        # Викликаємо помилку, якщо контакт з таким ім'ям не існує.
     phonebook.delete(args[1])
     return f'Контакт {args[1]} видалено'
 
