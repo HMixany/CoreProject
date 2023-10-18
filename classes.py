@@ -81,10 +81,10 @@ class Record:
         if number is None:
             return
         elif number in map(lambda num: num.value, self.phones):
-            return 'номер вже є'  # Якщо такий номер вже є у контакта
+            return ' номер вже є'  # Якщо такий номер вже є у контакта
         else:
             self.phones.append(Phone(number))
-            return 'номер додано'
+            return ' номер додано'
 
     def remove_phone(self, number):
         for phone in self.phones:
@@ -109,23 +109,23 @@ class Record:
     def add_birthday(self, birthday):
         if self.birthday.value is None:
             self.birthday = Birthday(birthday)
-            return 'дату народження додано'
+            return '\nдату народження додано'
         else:
-            return 'дата народження вже є'
+            return '\nдата народження вже є'
 
     def add_email(self, email):
         if self.email.value is None:
             self.birthday = Email(email)
-            return 'email додано'
+            return '\nemail додано'
         else:
-            return 'email вже є'
+            return '\nemail вже є'
 
     def add_address(self, address):
         if self.address.value is None:
             self.birthday = Address(address)
-            return 'адресу додано'
+            return '\nадресу додано'
         else:
-            return 'адреса вже є'
+            return '\nадреса вже є'
 
     def days_to_birthday(self):
         today = date.today()
