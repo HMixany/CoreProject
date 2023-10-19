@@ -35,7 +35,11 @@ class Phone(Field):
     def value(self, value):
         if value is not None:
             if len(value) == 10 and value.isdigit():
-                self._value = value
+                if re.match(r'\b067|050|068|096|097|098|063|093|099|095\b', value):
+                    self._value = value
+                else:
+                    raise ValueError('неправильно введено код оператора, має бути: 067, 050, 068, 096,'
+                                 '097, 098, 063, 093, 099, 095')    
             else:
                 raise ValueError('Номер телефону має бути: код_оператора ХХХХХХ\nКод оператора: 067, 050, 068, 096,'
                                  '097, 098, 063, 093, 099, 095')
