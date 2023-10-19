@@ -64,7 +64,6 @@ class Email(Field):
             else:
                 raise ValueError(f'Невірний формат емейла {value} повинно бути у форматі example@email.com')
 
-
 class Address(Field):
     @Field.value.setter
     def value(self, value):
