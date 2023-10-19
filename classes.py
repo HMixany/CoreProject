@@ -59,7 +59,10 @@ class Email(Field):
     @Field.value.setter
     def value(self, value):
         if value is not None:
-            self._value = value
+            if re.match(r'\b[A-Za-z0-9._%+-]{2,}@[A-Za-z0-9-]+\.[A-Z|a-z]{2,3}\b', value):
+                self._value = value
+            else:
+                raise ValueError(f'Невірний формат емейла {value} повинно бути у форматі example@email.com')
 
 
 class Address(Field):
@@ -174,8 +177,7 @@ class AddressBook(UserDict):
     def delete(self, name):
         if name not in self.data:
             raise KeyError("Немає контакту з таким ім'ям")    # Викликаємо помилку, якщо контакт з таким ім'ям не існує.
-        result = self.data.pop(name)
-        return result
+        self.data.pop(name)
 
     def iterator(self, page_size):
         print(self.data)
