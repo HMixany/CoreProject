@@ -4,10 +4,11 @@
 
 # CoreProject
 ***
+- uses: Platane/snk@v3
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="github-snake-dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="github-snake.svg" />
-  <img alt="github-snake" src="https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake.svg"/>
+  <img alt="github-snake" src="https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake.svg" />
 </picture>
 
 #### Розробники
@@ -15,7 +16,7 @@
 
 - [Михайло Грицан](https://github.com/HMixany)
 - [Ярослав Зубко](https://github.com/Scriptur)
-- [Андрій Бузін]()
+- [Андрій Бузін](https://github.com/Andrei198203)
 - [Максим Гребеніченко](https://github.com/fghdxfvdxfvdf)
 - [Андрій Сагун](https://github.com/Andreyvovk18)
 
@@ -30,7 +31,11 @@ __Наш додаток допомагає:__
 
 ### Встановлення
 
-__pip install CoreProject-0.0.1-py3-none-any.whl__
+__pip install -i https://test.pypi.org/simple/CoreProject__
+
+### Запуск програми з консолі
+
+__startbook__
 
 ### Додаткові матеріали
 [Презентація проекту](https://docs.google.com/presentation/d/14nfpzPXH6ASJoIZimpJhTy__ygJNb2nI46N1-LbxvaA/edit?usp=sharing)
