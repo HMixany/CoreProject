@@ -39,4 +39,7 @@ __startbook__
 
 ### Додаткові матеріали
 [Презентація проекту](https://docs.google.com/presentation/d/14nfpzPXH6ASJoIZimpJhTy__ygJNb2nI46N1-LbxvaA/edit?usp=sharing)
+
 [Презентація проекту.pdf](/doc/Презентація%20проєкту.pdf)
+
+![snake gif](https://github.com/HMixany/CoreProject/blob/output/github-contribution-grid-snake.svg)
