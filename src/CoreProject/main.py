@@ -1,8 +1,8 @@
-import func
+from CoreProject import func
 import customtkinter
 import pickle
-import my_calendar_frame
-import sorted_files
+from CoreProject import my_calendar_frame
+from CoreProject import sorted_files
 
 
 def change_theme_menu(new_appearance):

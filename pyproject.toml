@@ -13,7 +13,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: GPL-3.0",
+    "License :: OSI Approved :: GNU GPLv3",
     "Operating System :: OS Independent",
 ]
 dependencies = ["customtkinter==5.2.0", "darkdetect==0.8.0"]

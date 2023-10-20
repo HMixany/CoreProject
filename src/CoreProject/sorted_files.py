@@ -1,11 +1,9 @@
 import re
 import shutil
-import sys
 from pathlib import Path
 
 
 def normalize(name):
-
     UKRAINIAN_SYMBOLS = 'абвгдеєжзиіїйклмнопрстуфхцчшщьюяы'
     TRANSLATION = ("a", "b", "v", "g", "d", "e", "je", "zh", "z", "y", "i", "ji", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t","u",
                    "f", "h", "ts", "ch", "sh", "sch", "", "ju", "ja", "y")

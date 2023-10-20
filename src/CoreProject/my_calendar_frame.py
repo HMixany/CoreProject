@@ -1,7 +1,7 @@
-from tkinter import *
 import calendar
+from datetime import datetime
+
 import customtkinter
-from datetime import datetime, timedelta
 
 
 class MyCalendar(customtkinter.CTkFrame):
