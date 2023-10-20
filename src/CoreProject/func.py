@@ -1,5 +1,5 @@
 import pickle
-from classes import *
+from CoreProject import classes
 
 
 def input_error(func):
@@ -47,7 +47,7 @@ def add(*args, **kwargs):
             result = result + result_phone + result_birthday + result_email + result_address
             return result
         else:
-            name_record = Record(kwargs['name'], kwargs['birthday'], kwargs['email'], kwargs['address'])
+            name_record = classes.Record(kwargs['name'], kwargs['birthday'], kwargs['email'], kwargs['address'])
             name_record.add_phone(kwargs['phone'])
             phonebook.add_record(name_record)
             return f'Успішно додано контакт '
@@ -62,9 +62,9 @@ def add(*args, **kwargs):
                 result = name_record.add_phone(args[2])                   # Додаємо новий номер, якщо контакт вже існує.
                 return f'Номер {args[2]} {result} {args[1]}'
         if len(args) == 4:
-            name_record = Record(args[1], args[3])
+            name_record = classes.Record(args[1], args[3])
         else:
-            name_record = Record(args[1])
+            name_record = classes.Record(args[1])
         name_record.add_phone(args[2])
         phonebook.add_record(name_record)
         return f'Контакт {args[1]} з номером {args[2]} успішно додано'  # Повідомляємо користувача про успішне додавання.
@@ -164,7 +164,7 @@ try:
 
 except FileNotFoundError:
     print('Book is not. Create new book')
-    phonebook = AddressBook()           # Створюємо пустий словник для зберігання контактів (імена-ключі, номери
+    phonebook = classes.AddressBook()           # Створюємо пустий словник для зберігання контактів (імена-ключі, номери
     # телефону-значення), якщо файлу не існує
 
 
