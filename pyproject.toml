@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "CoreProject"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Mykhailo Hrytsan", email="HMixany@gmail.com" },
 ]
@@ -24,6 +24,9 @@ dependencies = ["customtkinter==5.2.0", "darkdetect==0.8.0"]
 
 [project.scripts]
 startbook = "CoreProject.main:main"
+
+[tool.setuptools]
+include-package-data = true
 
 
 
