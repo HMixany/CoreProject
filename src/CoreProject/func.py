@@ -30,7 +30,6 @@ def compiling_page(page_number, contacts, total):
 # Декорована функція для додавання нового контакту або оновлення існуючого.
 @input_error
 def add(*args, **kwargs):
-    print(kwargs)
     if len(args) == 1:                                                  # Якщо додається з gui
         for key in kwargs:
             if len(kwargs[key].strip()) == 0:
