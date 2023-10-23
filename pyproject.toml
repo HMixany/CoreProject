@@ -4,11 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "CoreProject"
-version = "0.0.3"
+version = "0.0.4"
 authors = [
-  { name="Mykhailo Hrytsan", email="HMixany@gmail.com" },
+    { name="Mykhailo Hrytsan", email="HMixany@gmail.com" },
+    {name="Yaroslav Zubko", email="scriptur@gmail.com"},
+    {name="Максим Гребеніченко", email="aaa1113341998825@gmail.com"},
+    {name="Андрій Сагун", email="Andreyvovk18@gmail.com"},
+    {name="Андрій Бузін", email="buzin.andrei@gmail.com"}
 ]
-description = "A small example package"
+description = "Phonebook"
 readme = "README.md"
 requires-python = ">=3.11"
 classifiers = [
