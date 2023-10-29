@@ -1,15 +1,50 @@
-from CoreProject import func
-import customtkinter
+from abc import ABC, abstractmethod
 import pickle
-from CoreProject import my_calendar_frame
-from CoreProject import sorted_files
+import customtkinter
+import func
+import my_calendar_frame
+import sorted_files
+
+
+class Viewer(ABC):
+    @abstractmethod
+    def added(self):
+        pass
+
+    @abstractmethod
+    def enter_app(self):
+        pass
+
+    @abstractmethod
+    def change_app(self):
+        pass
+
+    @abstractmethod
+    def show_app(self):
+        pass
+
+    @abstractmethod
+    def show_all_app(self):
+        pass
+
+    @abstractmethod
+    def delete_app(self):
+        pass
+
+    @abstractmethod
+    def sort_files_app(self):
+        pass
+
+    @abstractmethod
+    def find_birthday_users_app(self):
+        pass
 
 
 def change_theme_menu(new_appearance):
     customtkinter.set_appearance_mode(new_appearance)
 
 
-class App(customtkinter.CTk):
+class App(customtkinter.CTk, Viewer):
     def __init__(self):
         super().__init__()
         customtkinter.set_default_color_theme('green')
@@ -93,7 +128,7 @@ class App(customtkinter.CTk):
         self.btn_sorted_files.grid(row=5, column=0, padx=(25, 25), pady=(15, 15), sticky='ew')
         self.btn_ok = customtkinter.CTkButton(self.btn_frame, text='Іменинники', text_color='yellow',
                                               fg_color=('green', 'black'), hover_color='purple', font=('Arial bold', 16),
-                                              command=self.find_birthday_boy_app)
+                                              command=self.find_birthday_users_app)
         self.btn_ok.grid(row=6, column=0, padx=(25, 25), pady=(15, 15), sticky='ew')
 
         self.out_frame = customtkinter.CTkFrame(self)
@@ -202,7 +237,7 @@ class App(customtkinter.CTk):
                 self.lbl.configure(text="Такої папки не існує або не вірний шлях")
         self.entry_input.delete('0', 'end')
 
-    def find_birthday_boy_app(self):
+    def find_birthday_users_app(self):
         self.second_frame.grid_remove()
         self.first_frame.grid(row=0, column=1, padx=(20, 20), pady=(10, 10), sticky='ew')
         self.entry_input.focus()

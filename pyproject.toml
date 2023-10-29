@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "CoreProject"
-version = "0.0.4"
+version = "0.1.4"
 authors = [
     { name="Mykhailo Hrytsan", email="HMixany@gmail.com" },
     {name="Yaroslav Zubko", email="scriptur@gmail.com"},
@@ -20,7 +20,7 @@ classifiers = [
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
 ]
-dependencies = ["customtkinter==5.2.0", "darkdetect==0.8.0"]
+dependencies = ["customtkinter==5.2.1"]
 
 [project.urls]
 "Homepage" = "https://github.com/HMixany/CoreProject.git"
