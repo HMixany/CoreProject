@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 import pickle
 import customtkinter
-import func
-import my_calendar_frame
-import sorted_files
+from CoreProject import func
+from CoreProject import my_calendar_frame
+from Coreproject import sorted_files
 
 
 class Viewer(ABC):

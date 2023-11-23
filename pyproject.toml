@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "CoreProject"
-version = "0.1.4"
+version = "0.1.6"
 authors = [
     { name="Mykhailo Hrytsan", email="HMixany@gmail.com" },
     {name="Yaroslav Zubko", email="scriptur@gmail.com"},
@@ -31,7 +31,4 @@ startbook = "CoreProject.main:main"
 
 [tool.setuptools]
 include-package-data = true
-
-
-
 
