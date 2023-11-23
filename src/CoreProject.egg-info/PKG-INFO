@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: CoreProject
-Version: 0.1.7
+Version: 0.1.8
 Summary: Phonebook
 Author-email: Mykhailo Hrytsan <HMixany@gmail.com>, Yaroslav Zubko <scriptur@gmail.com>, Максим Гребеніченко <aaa1113341998825@gmail.com>, Андрій Сагун <Andreyvovk18@gmail.com>, Андрій Бузін <buzin.andrei@gmail.com>
 Project-URL: Homepage, https://github.com/HMixany/CoreProject.git
@@ -13,7 +13,7 @@ Description-Content-Type: text/markdown
 License-File: LICENSE
 Requires-Dist: customtkinter==5.2.1
 
-[![Static Badge](https://img.shields.io/badge/CoreProject%20-%20v.0.1.6%20-%20green)](https://github.com/HMixany/CoreProject)
+[![Static Badge](https://img.shields.io/badge/CoreProject%20-%20v.0.1.8%20-%20green)](https://github.com/HMixany/CoreProject)
 [![Static Badge](https://img.shields.io/badge/license%20-%20GPL--3.0%20-%20blue)](https://github.com/HMixany/CoreProject/blob/master/Licence.txt)
 
 
